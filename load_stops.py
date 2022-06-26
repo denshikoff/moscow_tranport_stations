@@ -10,13 +10,13 @@ from api.api import TransAPI
 from api.proxy import FileProxyManager, MosTransportBan
 from db.db import engine
 from models import Stop
-from station import stops
+from station import stops_coord
 from utils import stops_list_to_queue
 
 
 api = TransAPI(FileProxyManager(file_name='proxy.txt'))
 session = sessionmaker(bind=engine)()
-stops_list = list(stops_queue(f_name="data.csv"))
+stops_list = list(stops_coord(f_name="data.csv"))
 basicConfig(level=logging.DEBUG, filemode="a", filename="load_stops.log")
 parsed_stops = 0
 max_stops = len(stops_list)
