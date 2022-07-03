@@ -5,15 +5,26 @@ THREAD_SLEEP = 1 # Задержка потока
 NUM_THREADS = 55 # Количество создаваемы потоков
 STATION_CSV = os.getcwd() + "/stations.csv" # CSV файл с информацией об остановкам по которым делаются запросы
 
-DB_CONNECTION_STRING = f"postgresql://{os.getenv('db_login')}:{os.getenv('db_pass')}" \
-             f"@{os.getenv('db_host')}:{os.getenv('db_port')}/transmetrika" # Параметры БД
+typeDB = {
+    logging.INFO: 'transmetrika',
+    logging.DEBUG: 'transmetrika_test'
+}
+def getConnectStr(loglevel):
+    return f"postgresql://{os.getenv('db_login')}:{os.getenv('db_pass')}" \
+             f"@{os.getenv('db_host')}:{os.getenv('db_port')}/{typeDB[loglevel]}"
+
+#вместо константы функция
+#DB_CONNECTION_STRING = f"postgresql://{os.getenv('db_login')}:{os.getenv('db_pass')}" \
+#             f"@{os.getenv('db_host')}:{os.getenv('db_port')}/{typeDB[logging.DEBUG]}"
+
+
 DB_ECHO = False # Выводить ли в консоль SQL запросы
 
 
 PROXIES_FILE = "proxy.txt" # файл с прокси по умолчанию
 TOR_RESTART_DELAY: int = 10 # задержка после перезагружки сервиса тор
 
-LEVEL = logging.INFO # Уровень логгирования в обычном режими
+LEVEL = logging.INFO # Уровень логирования в обычном режиме
 TIME_LIMIT = 9 * 60  # 9 min Лимит времени работы программы
 
 
@@ -27,3 +38,4 @@ headers = {'sec-ch-ua': 'Not;A Brand";v="95", "Google Chrome";v="95", "Chromium"
 
 LIMIT_REPEAT = 4 # Максимальнео количество запросов на одну остановку
 DELAY_STOPS = 60 * 6 # Задеркжа перед повторным опросом
+

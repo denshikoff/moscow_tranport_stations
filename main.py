@@ -1,5 +1,4 @@
 import time
-
 from config import LIMIT_REPEAT, DELAY_STOPS
 from db.db import engine
 from models import Stop
@@ -17,10 +16,13 @@ from utils import stops_list_to_queue
 log = getLogger()
 
 args = parser.parse_args()
+
 log.debug(f"Command line args: {args}")
 
 logging.basicConfig(filename="parser.log", format='%(asctime)s %(levelname)s %(message)s ',
                     level=args.loglevel, filemode="a")
+
+
 session = sessionmaker(bind=engine)()
 
 
